@@ -1,0 +1,62 @@
+- which branching stratogy are using in git ?
+
+- What is the difference between security group and ACL and what is schenario go to the security group
+  which seanario go to the ACL ?
+
+- What senario creating the custumized IAM Policy?
+
+-Aws is provideing multiple custumized iam policys  which are the tool/interface you femiliar for that ?
+
+-In curent project how we privilazer IAM ?
+
+-What is mean by MFA 
+
+-What is the D/F between the Public bucket & Private bucket and which one more secure which one is most most Recomemded for AWS ?
+
+
+-Our clinet was Expecting storing the data in amazon S3 which is suggested in cheap costing experiance you suggest them ?
+
+-In what case you will go to recomand to custumer elastic IP ?
+
+- D/F between the Snapshot & AMI ?
+
+-In we custumer have 20 to 30 different Individual AWS Account 10 Accounts are using in Production 10 Accounts are using Sandboxes 10 Accounts using for UAT 
+How they manage centrally Account & How they are Restrict them using some Stadadization Policies As a cloud engineer how to bring 30 accounts bring from centralized mode ?
+
+-In AWS Account Under have Master Account we have added my user account there is some problem if any time click on leave from organization button what is the secured ?
+
+- What is the best way you can suggest if multiple AWS accounts are in server how manage the billing & optimized the billing is there any ways to centralized place where you can see ?
+
+- How you managing the Logs in our Organization in the current project  like AWS Logs & AWS Events ?
+
+-I have 2 AWS Accounts one is Production Account & Sandbox account cinet ask me to do POC Application was working as expected now my client wants to migrate Ec2 Instance From Sandbox account to Production AWS Account which Ec2 Account you are suggest ?
+
+
+- How to Implimenting the load balancing & Auto Scaling in you curent project ?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-
+
+
+
+

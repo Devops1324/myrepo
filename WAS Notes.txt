@@ -1,0 +1,321 @@
+./imcl install com.ibm.websphere.ND.v85_8.5.0.20120501_1108 -installationDirectory /opt/IBM/WebSpheres/AppServer8.5 -repositories /home/wasadmin/Desktop/WAS8.5/WAS_ND_V8.5_1_OF_3 -sharedResourcesDirectory /opt/IBM/IMShared -acceptLicense -showProgress
+
+
+./imcl install com.ibm.websphere.ND.v85_8.5.0.20120501_1108 -installationDirectory /opt/IBM/WebSpheres/AppServer8.5 -repositories /home/wasadmin/Desktop/WAS8.5/WAS_ND_V8.5_1_OF_3 -sharedResourcesDirectory /opt/IBM/IMShared -acceptLicense -showProgress
+
+
+
+
+
+Installation Manager:
+cd /home/wasadmin/Desktop/IM
+
+
+./installc -installationDirectory /opt/IBM/InstallationManager -acceptLicense
+
+Install:
+/home/narsimha/Documents/softwares/WAS/8.5_WAS_Shoban/InstalMgr1.5.2_LNX_X86_WAS_8.5
+
+./installc -acceptLicense
+
+To Start IM: goto eclipse
+/opt/IBM/InstallationManager/eclipse/ 
+./IBMIM
+
+IM uninstallation process :
+cd /var/ibm/InstallationManager/uninstall
+./uninstall -silent
+
+cd /opt/IBM/InstallationManager/eclipse/tools
+./imcl listInstalledpackages
+[root@localhost tools]# ./imcl listInstalledPackages
+com.ibm.cic.agent_1.9.0.20190715_0328
+
+
+./imcl uninstall com.ibm.cic.agent_1.9.0.20190715_0328
+
+
+/opt/IBM/InstallationManager/eclipse/tools
+
+./imcl listAvailablePackages -repositories /home/wasadmin/Desktop/WAS8.5/WAS_ND_V8.5_1_OF_3
+
+Packages:
+=========
+com.ibm.websphere.ND.v85_8.5.0.20120501_1108
+
+WAS :
+========
+./imcl install com.ibm.websphere.ND.v85_8.5.0.20120501_1108 -installationDirectory /opt/IBM/WebSpheres/AppServer -repositories /home/wasadmin/Desktop/WAS8.5/WAS_ND_V8.5_1_OF_3 -sharedResourcesDirectory /opt/IBM/IMShared -acceptLicense -showProgress
+
+
+
+
+
+Unstalled WAS GraphicallMode:
+cd  /opt/IBM/InstallationManager/Eclips/
+./IBMIM
+
+Remove Files From Appserver:
+Cd /Opt/IBM/Websphere/Appserver
+rm -rf *
+
+
+
+
+IM uninstallation process :
+cd /var/ibm/InstallationManager/uninstall
+./uninstall -silent
+
+
+IM Installation process :
+/home/wasadmin/Desktop/IM
+./installc -installationDirectory /opt/IBM/InstallationManager -acceptLicense
+
+
+[root@localhost tools]# ./imcl listInstalledpackages
+com.ibm.cic.agent_1.5.2000.20120223_0907
+
+
+
+cd /opt/IBM/InstallationManager/eclipse/tools
+./imcl listAvailablePackages -repositories /home/wasadmin/Desktop/WAS8.5/WAS_ND_V8.5_1_OF_3
+com.ibm.websphere.ND.v85_8.5.0.20120501_1108
+
+
+cd /opt/IBM/InstallationManager/eclipse/tools
+./imcl install com.ibm.websphere.ND.v85_8.5.0.20120501_1108 -installationDirectory /opt/IBM/WebSpheres/AppServer -repositories /home/wasadmin/Desktop/WAS_SW/WAS_ND_V8.5_1_OF_3 -sharedResourcesDirectory /opt/IBM/IMShared -acceptLicense -showProgress
+
+Installed com.ibm.websphere.ND.v85_8.5.0.20120501_1108 to the /opt/IBM/WebSpheres/AppServer directory. --> Once Installation is done its showing like this.
+
+
+Check WAS Version :
+/opt/IBM/WebSpheres/AppServer/bin
+	./versionInfo.sh
+
+
+
+Profiles Creation:
+================
+
+cd /opt/IBM/WebSpheres/AppServer/bin
+
+Dmgr
+
+./manageprofiles.sh -create -profileName Dmgr -profilePath /opt/IBM/WebSpheres/AppServer/profiles/Dmgr/ -templatePath /opt/IBM/WebSpheres/AppServer/profileTemplates/management -serverType DEPLOYMENT_MANAGER -nodeName localhostCellManager01 -cellName localhostCell01 -hostName localhost
+
+
+AppSrvr
+
+./manageprofiles.sh -create -profileName AppSrvr01 -profilePath /opt/IBM/WebSpheres/AppServer/profiles/AppSrvr01/ -templatePath /opt/IBM/WebSpheres/AppServer/profileTemplates/default -serverType APPLICATION_SERVER -nodeName localhostNode01 -cellName localhostNode01Cell -hostName localhost
+
+
+Custom : 
+
+./manageprofiles.sh -create -profileName AppSrvr02 -profilePath /opt/IBM/WebSpheres/AppServer/profiles/AppSrvr02/ -templatePath /opt/IBM/WebSpheres/AppServer/profileTemplates/managed -nodeName localhostNode02 -cellName localhostNode02Cell -hostName localhost
+
+
+
+Check The Profile Creaction:
+
+cd /opt/IBM/WebSpheres/AppServer/profiles
+
+
+Fedartaion :
+Grouping of nodes is called federation 
+
+Step 1 : Start Dmgr 
+
+Go to Dmgr profile bin   ---> /opt/IBM/WebSpheres/AppServer/profiles/Dmgr/bin
+./startManager.sh
+./stopManager.sh
+
+
+./startNode.sh
+./stopNode.sh
+
+
+
+Then go to profile bin which profile you want to federate with Dmgr.
+/opt/IBM/WebSpheres/AppServer/profiles/AppServer01/bin
+./addNode.sh localhost 8879 -username wasadmin -password wasadmin
+./startServer.sh server1
+./stopServer.sh server1
+
+
+
+/opt/IBM/WebSpheres/AppServer/profiles/AppServer02/bin
+./addNode.sh localhost 8879 -username wasadmin -password wasadmin
+
+
+Lanching the Admin Console:
+Mozilla >> https://localhost:9043/admin/ >> I Understand the Risk >> AddException >> Get Ceritificate >> Conform Security Exception
+>>wasadmin>>servers>>All servers>>New>>Next
+
+Clusters >>Webshphere Application server clusters>>New>>Plants_Cluster>>Both_Check_Boxes>>Next
+-Option1 	-> The Server01(Creating member by converting the existing application server) is not adding into the cluster.
+-Option03 	-> The Server01 is adding into the cluster.
+
+-Server01 Creating only Appserver Profiles Not for Custum Profiles.so we selected 3rd Option only.
+Next >>MemeberName(Server2)>>Dropdown(select 2nd Option(Horizantal)>>Next >>No need to Members >> Finish >> Reviews >> Synchroz(check)>>Save>>Ok
+So our cluster should be creating now.
+
+
+https://localhost:9443/PlantsByWebSphere
+
+-Deployed the application under default path only.
+/opt/IBM/WebSphere/AppServer/profiles/Dmgr01/config/cells/localhostCell01/applications/PlantsByWebSphere.ear
+
+/opt/IBM/WebSphere/AppServer/profiles/AppServer02/installedapps/localhostcell01/PlantsByWebSphere.ear
+
+cat help.jsp
+
+
+
+
+
+-How to check Dmgr Running Or Not ?
+ ps -ef | grep java
+ ps -ef | grep nodeagent -->If it not Run
+
+
+
+
+
+
+-Command for display the Profiles ?
+./manageprofiles.sh -listProfiles
+
+
+-Delete the Profile ?
+./manageprofiles.sh -delete -profileName Dmgr
+
+
+
+cd opt/IBM/WebSpheres/AppServer/profiles/AppSrvr01/bin/
+./startNode.sh
+process id is 2896
+
+ps -ef | grep java  
+ps -ef | grep Dmgr
+ps -ef | grep 2896
+
+[root@localhost bin]# top
+
+
+
+/opt/IBM/Webspheres/AppServer/profiles/AppServer01/bin/
+./serverStatus.sh -all
+
+
+
+
+
+
+Dmgr Profile
+
+/opt/IBM/WebSphere/AppServer8.5/profiles/Dmgr
+
+NodeName: localhostCellmanager01
+Cellname: localhostCell01
+HostName : localhost
+
+Administartive Console http port :9060
+Administartive Console https : 9043
+
+BootStarp Port : 9809
+
+SOAP Port : 8879
+
+Space 30Mb
+
+
+How to start/stop Dmgr :
+
+cd /opt/IBM/WebSphere/AppServer8.5/profiles/Dmgr/bin
+./startManager.sh
+./stopManager/sh
+
+How to launch admin console;
+Go to browser
+type ;
+http://localhost:9060/admin
+https://localhost:9043/admin
+http://localhost:9060/ibm/console
+https://localhost:9043/ibm/console
+
+
+
+
+AppServer Profile
+
+/opt/IBM/WebSphere/AppServer8.5/profiles/AppServer01
+
+NodeName: localhostNode01
+Cellname: localhostCell01
+HostName : localhost
+
+Administartive Console http port :9061
+Administartive Console https : 9044
+
+By default one jvm ---> server1 will be created with the AppServer01 profile
+
+JVM ports :  http port :9080 , https : 9443
+
+BootStarp Port : 2809
+
+SOAP Port : 8880
+
+Space 200Mb
+
+How to start/stop AppServer01;
+
+cd /opt/IBM/WebSphere/AppServer8.5/profiles/AppServer01/bin
+./startServer.sh server1
+./stopServer.sh server1
+
+How to launch admin console for AppServer;
+Go to browser
+type ;
+http://localhost:9061/admin
+https://localhost:9044/admin
+http://localhost:9061/ibm/console
+https://localhost:9044/ibm/console
+
+
+
+[root@localhost bin]# ./addNode.sh localhost 8879 -username wasadmin -password wasadmin^C
+[root@localhost bin]# pwd
+/opt/IBM/WebSphere/AppServer/profiles/Custom01/bin
+
+
+
+
+-Memory Allocation WAS Process.
+-Memory allocation for was process.
+-Garbage collection polocies.
+-Enable the security for Admin Console.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
